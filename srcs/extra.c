@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 14:34:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/27 13:15:45 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/02/27 15:48:24 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,6 @@ char		file_type(mode_t mode)
 	if (S_ISSOCK(mode))
 		return ('s');
 	return ('?');
-}
-
-char		*perm(int i)
-{
-	if (i == 7)
-		return ("rwx");
-	if (i == 6)
-		return ("rw-");
-	if (i == 5)
-		return ("r-x");
-	if (i == 4)
-		return ("r--");
-	if (i == 3)
-		return ("-wx");
-	if (i == 2)
-		return ("-w-");
-	if (i == 1)
-		return ("--x");
-	return ("---");
 }
 
 size_t		block_size(char *opt, char *dir, char **lstcont)

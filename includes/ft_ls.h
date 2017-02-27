@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 15:35:10 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/07 02:07:02 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/02/27 16:06:08 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ int		dircheck(char *dir);
 void	tmp_free(char ***tmp);
 void	buff_dir_name(char *opt, char *dir, char **buff);
 int		buff_one(char *opt, char **lstcont, char **buff);
+void	buff_permi(struct stat atr, char **buff);
 
 #endif

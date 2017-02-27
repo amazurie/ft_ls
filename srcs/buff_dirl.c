@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 14:37:54 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/27 13:19:16 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/02/27 15:58:58 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ static void	buff_cont2(char *dir, struct stat atr, size_t *len, char **buff)
 
 	tmp2 = file_type(atr.st_mode);
 	fill_nchar(buff, tmp2, 1);
-	buffcat(buff, perm((S_IRWXU & atr.st_mode) / 64));
-	buffcat(buff, perm((S_IRWXG & atr.st_mode) / 8));
-	buffcat(buff, perm(S_IRWXO & atr.st_mode));
+	buff_permi(atr, buff);
 	fill_nchar(buff, get_atr(dir), 1);
 	tmp = ft_itoa(atr.st_nlink);
 	fill_nchar(buff, ' ', len[0] - ft_strlen(tmp));
