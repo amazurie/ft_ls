@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 15:38:58 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/06 22:56:43 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/02/27 13:12:26 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ char		**arg_handle(char **opt, int ac, char **av, char **buff)
 			lstdir[i[0]++] = ft_strdup(av[i[1] - 1]);
 		else
 		{
-			buffcat(buff, "ft_ls: " );
+			buffcat(buff, "ft_ls: ");
 			buffcat(buff, av[i[1] - 1]);
-			buffcat(buff, ": No such file or directory\n" );
+			buffcat(buff, ": No such file or directory\n");
 			opt[0][ft_strlen(*opt)] = '9';
 		}
 	}
@@ -70,9 +70,8 @@ int			get_arg(char **opt, int ac, char **av)
 			else if (add_arg(opt, &av[i][1]) == -1)
 				return (-1);
 		}
-		else
-			if (add_arg(opt, av[i]) == -1)
-				return (-1);
+		else if (add_arg(opt, av[i]) == -1)
+			return (-1);
 	}
 	return (i);
 }

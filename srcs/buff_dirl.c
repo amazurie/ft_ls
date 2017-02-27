@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 14:37:54 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/07 02:28:24 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/02/27 13:19:16 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,9 +116,9 @@ void		buff_idir(char *opt, char *dir, char **lstcont, char **buff)
 	size_t		i;
 	size_t		j;
 
-	i = ((j = 0)) ? 0 : 0;
+	j = 0;
 	while (lstcont[j])
-		j++;
+		i = (j++ > 0) ? 0 : 0;
 	cont = (char **)ft_memalloc(sizeof(char *) * (j + 1));
 	while (lstcont[i])
 		(cont[i] = ft_strdup(lstcont[i])) ? i++ : i++;

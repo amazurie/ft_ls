@@ -6,14 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 17:36:54 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/06 17:45:37 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/02/27 13:18:17 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-
-size_t	sort_alphat2(char *opt, char **lstdir, size_t i)
+size_t			sort_alphat2(char *opt, char **lstdir, size_t i)
 {
 	if (ft_strcmp(lstdir[i], lstdir[i + 1]) > 0
 			&& !ft_strchr(opt, 'r'))
@@ -32,7 +31,7 @@ size_t	sort_alphat2(char *opt, char **lstdir, size_t i)
 	return (i);
 }
 
-void	sort_alphat(char *opt, char **lstdir, char *path)
+void			sort_alphat(char *opt, char **lstdir, char *path)
 {
 	struct stat	atr;
 	struct stat	atr2;

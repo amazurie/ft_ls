@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 22:14:15 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/07 02:07:13 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/02/27 13:15:27 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void		buff_link(struct stat atr, char **buff, char *cont, char *tmp)
 	free(tmp2);
 }
 
-void	tmp_free(char ***tmp)
+void		tmp_free(char ***tmp)
 {
 	size_t	i;
 	size_t	j;
@@ -85,7 +85,7 @@ void	tmp_free(char ***tmp)
 	free(tmp);
 }
 
-int		buff_one(char *opt, char **lstcont, char **buff)
+int			buff_one(char *opt, char **lstcont, char **buff)
 {
 	size_t i;
 

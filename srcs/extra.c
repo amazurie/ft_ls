@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 14:34:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/06 15:01:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/02/27 13:15:45 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char	file_type(mode_t mode)
+char		file_type(mode_t mode)
 {
 	if (S_ISREG(mode))
 		return ('-');
@@ -31,7 +31,7 @@ char	file_type(mode_t mode)
 	return ('?');
 }
 
-char	*perm(int i)
+char		*perm(int i)
 {
 	if (i == 7)
 		return ("rwx");
@@ -50,7 +50,7 @@ char	*perm(int i)
 	return ("---");
 }
 
-size_t	block_size(char *opt, char *dir, char **lstcont)
+size_t		block_size(char *opt, char *dir, char **lstcont)
 {
 	struct stat	atr;
 	size_t		size;
