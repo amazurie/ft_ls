@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 17:24:31 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/07 05:02:45 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/01 11:56:46 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,8 @@ void			set_nbr(char *opt, char **lstcont, size_t **nbr)
 	nbr[0][1] = 0;
 	nbr[0][3] = 0;
 	while (lstcont[nbr[0][1]])
-	{
 		if (lstcont[nbr[0][1]++][0] != '.' || ft_strchr(opt, 'a'))
-		{
 			nbr[0][3]++;
-		}
-	}
 	if (!(nbr[0][0] = nname(opt, lstcont, w, &nbr[0][2])))
 		nbr[0][0] = 1;
 	nbr[0][1] = 0;

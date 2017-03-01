@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 15:38:58 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/27 13:12:26 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/01 12:25:58 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,19 @@ void		argcheck(char *dir, char **buff)
 
 char		**arg_handle(char **opt, int ac, char **av, char **buff)
 {
-	char	**lstdir;
-	int		i[2];
+	char		**lstdir;
+	int			i[2];
+	struct stat	atr;
 
 	i[0] = 0;
-	i[1] = get_arg(opt, ac, av);
-	if (i[1] == -1)
+	if ((i[1] = get_arg(opt, ac, av)) == -1)
 		return (NULL);
 	lstdir = (char **)ft_memalloc(sizeof(char *) * (ac - i[1] + 2));
 	if (i[1] == ac)
 		lstdir[0] = ft_strdup(".");
 	while (i[1] < ac)
 	{
-		if (dircheck(av[i[1]++]))
+		if (stat(av[i[1]++], &atr) != -1)
 			lstdir[i[0]++] = ft_strdup(av[i[1] - 1]);
 		else
 		{

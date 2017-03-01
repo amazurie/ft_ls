@@ -6,7 +6,7 @@
 #    By: jmoucade <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/05 13:11:07 by jmoucade          #+#    #+#              #
-#    Updated: 2017/02/27 16:00:56 by amazurie         ###   ########.fr        #
+#    Updated: 2017/03/01 12:11:45 by amazurie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRC =	$(SRC_PATH)/main.c			\
 		$(SRC_PATH)/buff_dirl.c		\
 		$(SRC_PATH)/dir_sort.c		\
 		$(SRC_PATH)/size_sort.c		\
+		$(SRC_PATH)/extra3.c		\
 		$(SRC_PATH)/extra2.c		\
 		$(SRC_PATH)/extra.c			\
 		$(SRC_PATH)/perm.c

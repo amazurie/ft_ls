@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 11:10:24 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/07 02:17:58 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/01 12:18:17 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,54 @@ int			dircheck(char *dir)
 	return (0);
 }
 
-int			diropen(char *opt, char **lstdir, char **buff)
+static int	diropen2(char *opt, char **lstdir, char **buff)
 {
-	size_t			i;
+	size_t		i;
+	size_t		j;
+	size_t		k;
+	struct stat	atr;
 
+	i = 0;
+	j = 0;
+	k = 0;
+	while (lstdir[i])
+		if (j < ft_strlen(lstdir[i++]))
+			j = ft_strlen(lstdir[i - 1]);
 	sort_dir(opt, lstdir, NULL);
 	i = 0;
 	while (lstdir[i])
 	{
-		if (i)
-			fill_nchar(buff, '\n', 1);
-		dirlst(opt, lstdir[i++], buff);
+		stat(lstdir[i++], &atr);
+		if (file_type(atr.st_mode) != 'd')
+		{
+			k = 1;
+			buffcat(buff, lstdir[i - 1]);
+			buffncat(buff, " ", j);
+		}
+	}
+	return (k);
+}
+
+int			diropen(char *opt, char **lstdir, char **buff)
+{
+	size_t		i;
+	size_t		k;
+	struct stat	atr;
+
+	k = 0;
+	k = diropen2(opt, lstdir, buff);
+	if (k)
+		fill_nchar(buff, '\n', 1);
+	i = 0;
+	while (lstdir[i])
+	{
+		stat(lstdir[i++], &atr);
+		if (file_type(atr.st_mode) == 'd')
+		{
+			if (i - 1)
+				fill_nchar(buff, '\n', 1);
+			dirlst(opt, lstdir[i - 1], buff);
+		}
 	}
 	return (0);
 }
@@ -50,30 +87,6 @@ size_t		nbrcontdir(char *dir)
 		i++;
 	closedir(dirp);
 	return (i);
-}
-
-static void	searchdir(char *opt, char *dir, char **lstcont, char **buff)
-{
-	char	*tmp;
-	char	*tmp2;
-	size_t	i;
-
-	i = 0;
-	while (lstcont[i])
-	{
-		tmp = ft_strjoin(dir, "/");
-		tmp2 = ft_strjoin(tmp, lstcont[i]);
-		free(tmp);
-		if (dircheck(tmp2) && ft_strcmp(lstcont[i], "..") != 0 &&
-				ft_strcmp(lstcont[i], ".") != 0 &&
-				(lstcont[i][0] != '.' || ft_strchr(opt, 'a')))
-		{
-			fill_nchar(buff, '\n', 1);
-			dirlst(opt, tmp2, buff);
-		}
-		free(tmp2);
-		i++;
-	}
 }
 
 int			dirlst(char *opt, char *dir, char **buff)
