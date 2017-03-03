@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:00:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/27 16:22:15 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/03 11:14:49 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void		buff_permi(struct stat atr, char **buff)
 {
 	char *tmp;
 
-	tmp = (char *)ft_memalloc(4);
 	if ((S_ISGID & atr.st_mode) / 128 == 8 && (S_IRWXU & atr.st_mode) / 64 == 0)
 		tmp = ft_strdup("--S");
 	else
@@ -88,7 +87,9 @@ void		buff_permi(struct stat atr, char **buff)
 		}
 	}
 	buffcat(buff, tmp);
+	free(tmp);
 	buff_permi2(atr, buff, &tmp);
+	free(tmp);
 	buff_permi3(atr, buff, &tmp);
 	free(tmp);
 }
