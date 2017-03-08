@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 17:24:31 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/01 11:56:46 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/08 11:31:38 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,6 @@ void			buff_dir(char *opt, char *dir, char **lstcont, char **buff)
 		if (nbr[4]++ + 1 < nbr[1] && (nbr[5] > 1 || nbr[0] == 1))
 			buffcat(buff, "\n");
 	}
-	free(tmp);
+	free_lst(tmp);
 	free(nbr);
 }

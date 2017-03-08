@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 17:36:54 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/27 13:18:17 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/08 11:19:06 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 size_t			sort_alphat2(char *opt, char **lstdir, size_t i)
 {
 	if (ft_strcmp(lstdir[i], lstdir[i + 1]) > 0
-			&& !ft_strchr(opt, 'r'))
+			&& ft_strchr(opt, 'r') == 0)
 	{
 		ft_strswap(&lstdir[i], &lstdir[i + 1]);
 		(i > 0) ? i-- : 0;
 	}
 	else if ((ft_strcmp(lstdir[i], lstdir[i + 1]) < 0)
-			&& ft_strchr(opt, 'r'))
+			&& ft_strchr(opt, 'r') != 0)
 	{
 		ft_strswap(&lstdir[i], &lstdir[i + 1]);
 		(i > 0) ? i-- : 0;

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 15:35:10 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/01 12:16:17 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/08 11:31:40 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ int		buff_one(char *opt, char **lstcont, char **buff);
 void	buff_permi(struct stat atr, char **buff);
 void	searchdir2(char *opt, char *dir, char **lstcont, char **buff);
 void	searchdir(char *opt, char *dir, char **lstcont, char **buff);
+void	free_lst(char **lst);
 
 #endif

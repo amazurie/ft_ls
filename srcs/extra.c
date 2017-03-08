@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 14:34:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/27 15:48:24 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/08 11:32:39 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,14 @@ void		buff_dir_name(char *opt, char *dir, char **buff)
 		buffcat(buff, dir);
 	if (ft_strchr(opt, '9') && ft_strcmp(dir, ".") != 0)
 		buffcat(buff, ":\n");
+}
+
+void		free_lst(char **lst)
+{
+	int	i;
+
+	i = 0;
+	while (lst[i])
+		free(lst[i++]);
+	free(lst);
 }
