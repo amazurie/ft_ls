@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 15:35:10 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/08 11:31:40 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/08 15:16:26 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@
 # include <grp.h>
 # include <sys/types.h>
 # include <sys/acl.h>
+# include <errno.h>
 
-char	**arg_handle(char **opt, int ac, char **av, char **buff);
+char	**arg_handle(char **opt, int ac, char **av);
 int		get_arg(char **opt, int ac, char **av);
 int		add_arg(char **opt, char *op);
 int		diropen(char *opt, char **lstdir, char **buff);

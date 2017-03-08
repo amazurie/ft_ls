@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 15:38:58 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/08 11:11:26 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/08 15:16:19 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		argcheck(char *dir, char **buff)
 	}
 }
 
-char		**arg_handle(char **opt, int ac, char **av, char **buff)
+char		**arg_handle(char **opt, int ac, char **av)
 {
 	char		**lstdir;
 	int			i[2];
@@ -41,9 +41,8 @@ char		**arg_handle(char **opt, int ac, char **av, char **buff)
 			lstdir[i[0]++] = ft_strdup(av[i[1] - 1]);
 		else
 		{
-			buffcat(buff, "ft_ls: ");
-			buffcat(buff, av[i[1] - 1]);
-			buffcat(buff, ": No such file or directory\n");
+			ft_putstr_fd("ft_ls: ", 2);
+			perror(av[i[1] - 1]);
 			opt[0][ft_strlen(*opt)] = '9';
 		}
 	}
@@ -115,9 +114,9 @@ int			add_arg(char **opt, char *op)
 	}
 	if (j < 0)
 	{
-		ft_putstr("ft_ls: illegal option -- ");
-		ft_putchar(op[i]);
-		ft_putstr("\nusage: ls [-CRaflrt1] [file ...]\n");
+		ft_putstr_fd("ft_ls: illegal option -- ", 2);
+		ft_putchar_fd(op[i], 2);
+		ft_putstr_fd("\nusage: ls [-CRaflrt1] [file ...]\n", 2);
 	}
 	return (j);
 }
