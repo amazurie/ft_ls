@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 11:10:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/07 05:08:47 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/15 12:16:18 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,88 +35,87 @@ static void		sort_alpha(char *opt, char **lstdir)
 	}
 }
 
-static size_t	sort_sec(char **lstdir, char *path, struct stat atr, size_t i)
+static void	sort_rsec(char **lstdir, char **tmp, struct stat **atr, size_t i)
 {
-	struct stat	atr2;
-	char		*tmp;
-	char		*tmp2;
-	time_t		jktm[3];
+	int		j;
 
-	jktm[1] = 0;
-	jktm[0] = i;
-	jktm[2] = atr.st_mtime;
-	while (++jktm[0] && lstdir[jktm[0]])
+	j = i;
+	while (lstdir[j])
 	{
-		tmp = ft_strjoin(path, "/");
-		tmp2 = ft_strjoin(tmp, lstdir[jktm[0]]);
-		if (lstat(tmp2, &atr2) == 0 || stat(tmp2, &atr2) == 0)
+		tmp[2] = ft_strjoin(tmp[0], lstdir[j]);
+		stat(tmp[2], atr[1]);
+		if (atr[0]->st_mtime > atr[1]->st_mtime)
+			ft_strswap(&lstdir[i], &lstdir[j]);
+		if (atr[0]->st_mtime > atr[1]->st_mtime)
+			stat(tmp[2], atr[0]);
+		else if (atr[0]->st_mtime == atr[1]->st_mtime)
 		{
-			if (jktm[2] < atr2.st_mtime)
-				jktm[1] = jktm[0];
-			if (jktm[2] < atr2.st_mtime)
-				jktm[2] = atr2.st_mtime;
+			if (atr[0]->st_mtimespec.tv_nsec
+				> atr[1]->st_mtimespec.tv_nsec)
+			{
+				ft_strswap(&lstdir[i], &lstdir[j]);
+				stat(tmp[2], atr[0]);
+			}
 		}
-		free(tmp);
-		free(tmp2);
+		j++;
 	}
-	if (jktm[1] > 0)
-		ft_strswap(&lstdir[i], &lstdir[jktm[1]]);
-	return (i);
 }
 
-static size_t	sort_rsec(char **lstdir, char *path, struct stat atr, size_t i)
+static void	sort_sec(char **lstdir, char **tmp, struct stat **atr, size_t i)
 {
-	struct stat	atr2;
-	char		*tmp;
-	char		*tmp2;
-	time_t		jktm[3];
+	int		j;
 
-	jktm[1] = 0;
-	jktm[0] = i;
-	jktm[2] = atr.st_mtime;
-	while (++jktm[0] && lstdir[jktm[0]])
+	j = i;
+	while (lstdir[j])
 	{
-		tmp = ft_strjoin(path, "/");
-		tmp2 = ft_strjoin(tmp, lstdir[jktm[0]]);
-		if (lstat(tmp2, &atr2) == 0 || stat(tmp2, &atr2) == 0)
+		tmp[2] = ft_strjoin(tmp[0], lstdir[j]);
+		stat(tmp[2], atr[1]);
+		if (atr[0]->st_mtime < atr[1]->st_mtime)
+			ft_strswap(&lstdir[i], &lstdir[j]);
+		if (atr[0]->st_mtime < atr[1]->st_mtime)
+			stat(tmp[2], atr[0]);
+		else if (atr[0]->st_mtime == atr[1]->st_mtime)
 		{
-			if (jktm[2] > atr2.st_mtime)
-				jktm[1] = jktm[0];
-			if (jktm[2] > atr2.st_mtime)
-				jktm[2] = atr2.st_mtime;
+			if (atr[0]->st_mtimespec.tv_nsec
+				< atr[1]->st_mtimespec.tv_nsec)
+			{
+				ft_strswap(&lstdir[i], &lstdir[j]);
+				stat(tmp[2], atr[0]);
+			}
 		}
-		free(tmp);
-		free(tmp2);
+		free(tmp[2]);
+		j++;
 	}
-	if (jktm[1] > 0)
-		ft_strswap(&lstdir[i], &lstdir[jktm[1]]);
-	return (i);
 }
 
 static void		sort_time(char *opt, char **lstdir, char *path)
 {
-	struct stat	atr;
-	char		*tmp;
-	char		*tmp2;
+	struct stat	**atr;
+	char		**tmp;
 	size_t		i;
 
+	atr = (struct stat **)ft_memalloc(sizeof(struct stat *) * 3);
+	atr[0] = (struct stat *)ft_memalloc(sizeof(struct stat));
+	atr[1] = (struct stat *)ft_memalloc(sizeof(struct stat));
+	tmp = (char **)ft_memalloc(sizeof(char *) * 4);
 	i = 0;
 	while (lstdir[i])
 	{
-		tmp = ft_strjoin(path, "/");
-		tmp2 = ft_strjoin(tmp, lstdir[i]);
-		if (lstat(tmp2, &atr) == 0 || stat(tmp2, &atr) == 0)
-		{
-			if (ft_strchr(opt, 'r'))
-				i = sort_rsec(lstdir, path, atr, i);
-			else
-				i = sort_sec(lstdir, path, atr, i);
-		}
+		tmp[0] = ft_strjoin(path, "/");
+		tmp[1] = ft_strjoin(tmp[0], lstdir[i]);
+		stat(tmp[1], atr[0]);
+		if (ft_strchr(opt, 'r'))
+			sort_rsec(lstdir, tmp, atr, i);
+		else
+			sort_sec(lstdir, tmp, atr, i);
+		free(tmp[0]);
+		free(tmp[1]);
 		i++;
-		free(tmp);
-		free(tmp2);
 	}
-	sort_alphat(opt, lstdir, path);
+	free(atr[0]);
+	free(atr[1]);
+	free(atr);
+	free(tmp);
 }
 
 int				sort_dir(char *opt, char **lstdir, char *path)

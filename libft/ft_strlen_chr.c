@@ -6,13 +6,15 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 11:31:36 by amazurie          #+#    #+#             */
-/*   Updated: 2016/12/06 11:31:39 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/15 12:32:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_strlen_chr(char *s, char c)
+#include "libft.h"
+
+size_t		ft_strlen_chr(char *s, char c)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (s[i] && s[i] != c)

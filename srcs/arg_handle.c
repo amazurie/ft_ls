@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 15:38:58 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/08 15:16:19 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/15 12:28:56 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,26 @@ void		argcheck(char *dir, char **buff)
 char		**arg_handle(char **opt, int ac, char **av)
 {
 	char		**lstdir;
-	int			i[2];
+	char		**lsterr;
+	int			i[3];
 	struct stat	atr;
 
 	i[0] = 0;
 	if ((i[1] = get_arg(opt, ac, av)) == -1)
 		return (NULL);
 	lstdir = (char **)ft_memalloc(sizeof(char *) * (ac - i[1] + 2));
+	lsterr = (char **)ft_memalloc(sizeof(char *) * (ac - i[1] + 2));
 	if (i[1] == ac)
 		lstdir[0] = ft_strdup(".");
+	i[2] = 0;
 	while (i[1] < ac)
 	{
 		if (stat(av[i[1]++], &atr) != -1)
 			lstdir[i[0]++] = ft_strdup(av[i[1] - 1]);
 		else
-		{
-			ft_putstr_fd("ft_ls: ", 2);
-			perror(av[i[1] - 1]);
-			opt[0][ft_strlen(*opt)] = '9';
-		}
+			lsterr[i[2]++] = ft_strdup(av[i[1] - 1]);
 	}
+	printfile_err(lsterr, opt);
 	if ((i[0] > 1 || ft_strchr(*opt, 'R') != NULL) && !ft_strchr(*opt, '9'))
 		opt[0][ft_strlen(*opt)] = '9';
 	return (lstdir);

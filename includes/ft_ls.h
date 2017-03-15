@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 15:35:10 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/08 15:16:26 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/15 12:30:37 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ void	sort_size(char *opt, char **lstdir, char *path);
 void	argcheck(char *dir, char **buff);
 void	buff_dir(char *opt, char *dir, char **lstcont, char **buff);
 void	buff_idir(char *opt, char *dir, char **lstcont, char **buff);
-size_t	sort_alphat2(char *opt, char **lstdir, size_t i);
-void	sort_alphat(char *opt, char **lstdir, char *path);
 size_t	block_size(char *opt, char *dir, char **lstcont);
 void	set_pathdir(char *opt, char *dir, char **lstcont, struct stat *atr);
 size_t	print_buff(char **buff);
@@ -61,6 +59,7 @@ int		buff_one(char *opt, char **lstcont, char **buff);
 void	buff_permi(struct stat atr, char **buff);
 void	searchdir2(char *opt, char *dir, char **lstcont, char **buff);
 void	searchdir(char *opt, char *dir, char **lstcont, char **buff);
+void	printfile_err(char **err, char **opt);
 void	free_lst(char **lst);
 
 #endif

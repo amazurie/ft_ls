@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 12:10:18 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/01 12:12:35 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/15 12:31:25 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,22 @@ void	searchdir(char *opt, char *dir, char **lstcont, char **buff)
 		free(tmp2);
 		i++;
 	}
+}
+
+void	printfile_err(char **err, char **opt)
+{
+	int	i;
+
+	i = 0;
+	while (err[i])
+	{
+		ft_putstr_fd("ft_ls: ", 2);
+		perror(err[i]);
+		opt[0][ft_strlen(*opt)] = '9';
+		if (ft_strlen_chr(*opt, 'r') < ft_strlen(*opt))
+			opt[0][ft_strlen_chr(*opt, 'r')] = ' ';
+		i++;
+		free(err[i]);
+	}
+	free(err);
 }
