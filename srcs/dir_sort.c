@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 11:10:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 17:43:56 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 17:59:07 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ static void	sort_rsec(char **lstdir, char **tmp, struct stat **atr, size_t i)
 	while (lstdir[j])
 	{
 		tmp[2] = ft_strjoin(tmp[0], lstdir[j]);
-		stat(tmp[2], atr[1]);
+		lstat(tmp[2], atr[1]);
 		if (atr[0]->st_mtime > atr[1]->st_mtime)
 			ft_strswap(&lstdir[i], &lstdir[j]);
 		if (atr[0]->st_mtime > atr[1]->st_mtime)
-			stat(tmp[2], atr[0]);
+			lstat(tmp[2], atr[0]);
 		else if (atr[0]->st_mtime == atr[1]->st_mtime)
 		{
 			if ((atr[0]->st_mtimespec.tv_nsec > atr[1]->st_mtimespec.tv_nsec)
@@ -55,7 +55,7 @@ static void	sort_rsec(char **lstdir, char **tmp, struct stat **atr, size_t i)
 				&& ft_strcmp(lstdir[i], lstdir[j]) <= 0))
 			{
 				ft_strswap(&lstdir[i], &lstdir[j]);
-				stat(tmp[2], atr[0]);
+				lstat(tmp[2], atr[0]);
 			}
 		}
 		j++;
@@ -70,11 +70,11 @@ static void	sort_sec(char **lstdir, char **tmp, struct stat **atr, size_t i)
 	while (lstdir[j])
 	{
 		tmp[2] = ft_strjoin(tmp[0], lstdir[j]);
-		stat(tmp[2], atr[1]);
+		lstat(tmp[2], atr[1]);
 		if (atr[0]->st_mtime < atr[1]->st_mtime)
 			ft_strswap(&lstdir[i], &lstdir[j]);
 		if (atr[0]->st_mtime < atr[1]->st_mtime)
-			stat(tmp[2], atr[0]);
+			lstat(tmp[2], atr[0]);
 		else if (atr[0]->st_mtime == atr[1]->st_mtime)
 		{
 			if ((atr[0]->st_mtimespec.tv_nsec < atr[1]->st_mtimespec.tv_nsec)
@@ -82,7 +82,7 @@ static void	sort_sec(char **lstdir, char **tmp, struct stat **atr, size_t i)
 				&& ft_strcmp(lstdir[i], lstdir[j]) >= 0))
 			{
 				ft_strswap(&lstdir[i], &lstdir[j]);
-				stat(tmp[2], atr[0]);
+				lstat(tmp[2], atr[0]);
 			}
 		}
 		free(tmp[2]);
@@ -105,7 +105,7 @@ static void	sort_time(char *opt, char **lstdir, char *path)
 	{
 		tmp[0] = ft_strjoin(path, "/");
 		tmp[1] = ft_strjoin(tmp[0], lstdir[i]);
-		stat(tmp[1], atr[0]);
+		lstat(tmp[1], atr[0]);
 		if (ft_strchr(opt, 'r'))
 			sort_rsec(lstdir, tmp, atr, i);
 		else

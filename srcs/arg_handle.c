@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 15:38:58 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 10:05:52 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 18:01:10 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		argcheck(char *dir, char **buff)
 {
 	struct stat		atr;
 
-	if (lstat(dir, &atr) != 0 || stat(dir, &atr) != 0)
+	if (lstat(dir, &atr) != 0)
 	{
 		print_buff(buff);
 		perror(dir);
@@ -40,7 +40,7 @@ char		**arg_handle(char **opt, int ac, char **av)
 	i[2] = 0;
 	while (i[1] < ac)
 	{
-		if (stat(av[i[1]++], &atr) != -1)
+		if (lstat(av[i[1]++], &atr) != -1)
 			lstdir[i[0]++] = ft_strdup(av[i[1] - 1]);
 		else
 			lsterr[i[2]++] = ft_strdup(av[i[1] - 1]);

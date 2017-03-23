@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 11:10:24 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 17:55:38 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 18:02:00 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			diropen(char *opt, char **lstdir, char **buff)
 	i = 0;
 	while (lstdir[i])
 	{
-		stat(lstdir[i++], &atr);
+		lstat(lstdir[i++], &atr);
 		if (file_type(atr.st_mode) == 'd')
 		{
 			if (i - 1)
