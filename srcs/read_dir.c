@@ -6,52 +6,55 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 11:10:24 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 14:51:34 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 15:32:18 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			dircheck(char *dir)
+static void	diropen3(char *opt, char **lstdir, char **buff, size_t **i)
 {
-	DIR			*dirp;
+	size_t		*len;
 	struct stat	atr;
 
-	lstat(dir, &atr);
-	if ((dirp = opendir(dir)) && file_type(atr.st_mode) == 'd')
+	len_ls(lstdir, &atr, &len);
+	(*i)[0] = 0;
+	while (lstdir[(*i)[0]])
 	{
-		closedir(dirp);
-		return (1);
+		stat(lstdir[(*i)[0]++], &atr);
+		if (file_type(atr.st_mode) != 'd')
+		{
+			(*i)[2] = 1;
+			if (ft_strchr(opt, 'l'))
+			{
+				buff_cont2(lstdir[(*i)[0] - 1], atr, len, buff);
+				buffncat(buff, " ", (*i)[1]);
+			}
+			buffcat(buff, lstdir[(*i)[0] - 1]);
+			buffncat(buff, " ", (*i)[1]);
+			if (ft_strchr(opt, 'l'))
+				fill_nchar(buff, '\n', 1);
+		}
 	}
-	return (0);
+	free(len);
 }
 
 static int	diropen2(char *opt, char **lstdir, char **buff)
 {
-	size_t		i;
-	size_t		j;
-	size_t		k;
-	struct stat	atr;
+	size_t		*i;
 
-	i = 0;
-	j = 0;
-	k = 0;
-	while (lstdir[i])
-		if (j < ft_strlen(lstdir[i++]))
-			j = ft_strlen(lstdir[i - 1]);
+	i = (size_t *)ft_memalloc(sizeof(size_t) * 4);
+	i[0] = 0;
+	i[1] = 0;
+	i[2] = 0;
+	while (lstdir[i[0]])
+		if (i[1] < ft_strlen(lstdir[i[0]++]))
+			i[1] = ft_strlen(lstdir[i[0] - 1]);
 	sort_dir(opt, lstdir, NULL);
-	i = 0;
-	while (lstdir[i])
-	{
-		stat(lstdir[i++], &atr);
-		if (file_type(atr.st_mode) != 'd')
-		{
-			k = 1;
-			buffcat(buff, lstdir[i - 1]);
-			buffncat(buff, " ", j);
-		}
-	}
-	return (k);
+	diropen3(opt, lstdir, buff, &i);
+	buff[0][ft_strlen((*buff)) - 1] = 0;
+	free(i);
+	return (i[2]);
 }
 
 int			diropen(char *opt, char **lstdir, char **buff)
@@ -99,7 +102,7 @@ int			dirlst(char *opt, char *dir, char **buff)
 	size_t			i;
 
 	if (!(dirp = opendir(dir)))
-		return (print_err());
+		return (print_err_perm(buff));
 	lstcont = (char **)ft_memalloc(sizeof(char *) * (nbrcontdir(dir) + 1));
 	i = 0;
 	while ((dirc = readdir(dirp)))

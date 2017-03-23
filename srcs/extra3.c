@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 12:10:18 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 14:52:51 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 15:33:15 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@ void	searchdir(char *opt, char *dir, char **lstcont, char **buff)
 	}
 }
 
+int		dircheck(char *dir)
+{
+	DIR			*dirp;
+	struct stat	atr;
+
+	lstat(dir, &atr);
+	if ((dirp = opendir(dir)) && file_type(atr.st_mode) == 'd')
+	{
+		closedir(dirp);
+		return (1);
+	}
+	return (0);
+}
+
 void	printfile_err(char **err, char **opt)
 {
 	int	i;
@@ -52,8 +66,9 @@ void	printfile_err(char **err, char **opt)
 	free(err);
 }
 
-int		print_err(void)
+int		print_err_perm(char **buff)
 {
-	ft_putstr("ft_ls: a: Permission denied\n");
+	print_buff(buff);
+	ft_putstr_fd("ft_ls: a: Permission denied\n", 2);
 	return (1);
 }
