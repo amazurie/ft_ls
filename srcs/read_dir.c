@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 11:10:24 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 15:32:18 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 15:49:42 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int			dirlst(char *opt, char *dir, char **buff)
 	size_t			i;
 
 	if (!(dirp = opendir(dir)))
-		return (print_err_perm(buff));
+		return (print_err_perm(buff, dir));
 	lstcont = (char **)ft_memalloc(sizeof(char *) * (nbrcontdir(dir) + 1));
 	i = 0;
 	while ((dirc = readdir(dirp)))

@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 14:37:54 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 15:02:14 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 16:19:11 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	len_ls(char **lstcont, struct stat *atr, size_t **len)
+void		len_ls(char **lstcont, struct stat *atr, size_t **len)
 {
 	char	*tmp;
 	size_t	i;
@@ -57,7 +57,7 @@ char		get_atr(char *path)
 	return (' ');
 }
 
-void	buff_cont2(char *dir, struct stat atr, size_t *len, char **buff)
+void		buff_cont2(char *dir, struct stat atr, size_t *len, char **buff)
 {
 	char	*tmp;
 	char	tmp2;

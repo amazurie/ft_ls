@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 12:10:18 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 15:33:15 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 16:16:09 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	searchdir(char *opt, char *dir, char **lstcont, char **buff)
 		tmp = ft_strjoin(dir, "/");
 		tmp2 = ft_strjoin(tmp, lstcont[i]);
 		free(tmp);
-		if (dircheck(tmp2) && ft_strcmp(lstcont[i], "..") != 0 &&
+		if (dircheck(tmp2, buff) && ft_strcmp(lstcont[i], "..") != 0 &&
 				ft_strcmp(lstcont[i], ".") != 0 &&
 				(lstcont[i][0] != '.' || ft_strchr(opt, 'a')))
 		{
@@ -36,13 +36,16 @@ void	searchdir(char *opt, char *dir, char **lstcont, char **buff)
 	}
 }
 
-int		dircheck(char *dir)
+int		dircheck(char *dir, char **buff)
 {
 	DIR			*dirp;
 	struct stat	atr;
 
 	lstat(dir, &atr);
-	if ((dirp = opendir(dir)) && file_type(atr.st_mode) == 'd')
+	errno = 0;
+	if (!(dirp = opendir(dir)) && errno != ENOTDIR)
+		print_err_perm(buff, dir);
+	else if (file_type(atr.st_mode) == 'd')
 	{
 		closedir(dirp);
 		return (1);
@@ -66,9 +69,9 @@ void	printfile_err(char **err, char **opt)
 	free(err);
 }
 
-int		print_err_perm(char **buff)
+int		print_err_perm(char **buff, char *dir)
 {
 	print_buff(buff);
-	ft_putstr_fd("ft_ls: a: Permission denied\n", 2);
+	perror(dir);
 	return (1);
 }
