@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:00:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/03 11:14:49 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 17:02:10 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,39 +31,25 @@ char		*perm(int i)
 	return ("---");
 }
 
-static void	buff_permi3(struct stat atr, char **buff, char **tmp)
-{
-	if ((S_ISGID & atr.st_mode) / 128 == 8 && (S_IRWXO & atr.st_mode) == 0)
-		*tmp = ft_strdup("--T");
-	else
-	{
-		*tmp = ft_strdup(perm(S_IRWXO & atr.st_mode));
-		if ((S_ISGID & atr.st_mode) / 128 == 8 && (S_IRWXO & atr.st_mode) != 0)
-		{
-			if ((*tmp)[2] == '-')
-				(*tmp)[2] = 'T';
-			else
-				(*tmp)[2] = 't';
-		}
-	}
-	buffcat(buff, *tmp);
-}
-
 static void	buff_permi2(struct stat atr, char **buff, char **tmp)
 {
-	if ((S_ISGID & atr.st_mode) / 128 == 8 && (S_IRWXG & atr.st_mode) / 8 == 0)
-		*tmp = ft_strdup("--S");
-	else
+	*tmp = ft_strdup(perm((S_IRWXG & atr.st_mode) / 8));
+	if ((S_ISGID & atr.st_mode))
 	{
-		*tmp = ft_strdup(perm((S_IRWXG & atr.st_mode) / 8));
-		if ((S_ISGID & atr.st_mode) / 128 == 8 &&
-				(S_IRWXG & atr.st_mode) / 8 != 0)
-		{
-			if ((*tmp)[2] == '-')
-				(*tmp)[2] = 'S';
-			else
-				(*tmp)[2] = 's';
-		}
+		if ((*tmp)[2] == '-')
+			(*tmp)[2] = 'S';
+		else
+			(*tmp)[2] = 's';
+	}
+	buffcat(buff, *tmp);
+	free(*tmp);
+	*tmp = ft_strdup(perm(S_IRWXO & atr.st_mode));
+	if ((S_ISVTX & atr.st_mode))
+	{
+		if ((*tmp)[2] == '-')
+			(*tmp)[2] = 'T';
+		else
+			(*tmp)[2] = 't';
 	}
 	buffcat(buff, *tmp);
 }
@@ -72,24 +58,16 @@ void		buff_permi(struct stat atr, char **buff)
 {
 	char *tmp;
 
-	if ((S_ISGID & atr.st_mode) / 128 == 8 && (S_IRWXU & atr.st_mode) / 64 == 0)
-		tmp = ft_strdup("--S");
-	else
+	tmp = ft_strdup(perm((S_IRWXU & atr.st_mode) / 64));
+	if ((S_ISUID & atr.st_mode))
 	{
-		tmp = ft_strdup(perm((S_IRWXU & atr.st_mode) / 64));
-		if ((S_ISGID & atr.st_mode) / 128 == 8 &&
-				(S_IRWXU & atr.st_mode) / 64 != 0)
-		{
-			if (tmp[2] == '-')
-				tmp[2] = 'S';
-			else
-				tmp[2] = 's';
-		}
+		if (tmp[2] == '-')
+			tmp[2] = 'S';
+		else
+			tmp[2] = 's';
 	}
 	buffcat(buff, tmp);
 	free(tmp);
 	buff_permi2(atr, buff, &tmp);
-	free(tmp);
-	buff_permi3(atr, buff, &tmp);
 	free(tmp);
 }

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 14:37:54 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 16:19:11 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 17:07:10 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ static void	buff_cont(char *dir, char **lstcont, struct stat *atr, char **buff)
 			free(tmp);
 			buff_cont2(tmp2, atr[i - 1], len, buff);
 			buffcat(buff, " ");
-			buff_link(atr[i - 1], buff, lstcont[i - 1], tmp2);
 			buffcat(buff, lstcont[i - 1]);
+			buff_link(atr[i - 1], buff, tmp2);
 			if (lstcont[i])
 				buffcat(buff, "\n");
 			free(tmp2);

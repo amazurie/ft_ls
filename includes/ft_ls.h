@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 15:35:10 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 15:57:08 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 17:07:04 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ size_t	fill_nchar(char **buff, char c, size_t n);
 char	file_type(mode_t mode);
 char	*perm(int i);
 void	time_cont(struct stat atr, char **buff, size_t *len);
-void	buff_link(struct stat atr, char **buff, char *cont, char *tmp);
+void	buff_link(struct stat atr, char **buff, char *tmp);
 int		dircheck(char *dir, char **buff);
 void	tmp_free(char ***tmp);
 void	buff_dir_name(char *opt, char *dir, char **buff);

@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 22:14:15 by amazurie          #+#    #+#             */
-/*   Updated: 2017/02/27 13:15:27 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 17:06:57 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,13 @@ void		time_cont(struct stat atr, char **buff, size_t *len)
 	}
 }
 
-void		buff_link(struct stat atr, char **buff, char *cont, char *tmp)
+void		buff_link(struct stat atr, char **buff, char *tmp)
 {
 	char	*tmp2;
 
 	tmp2 = (char *)ft_memalloc(500);
 	if (file_type(atr.st_mode) == 'l')
 	{
-		buffcat(buff, cont);
 		buffcat(buff, " -> ");
 		readlink(tmp, tmp2, 499);
 		buffcat(buff, tmp2);
