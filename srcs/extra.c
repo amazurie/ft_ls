@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 14:34:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/08 11:32:39 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:03:37 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ char		file_type(mode_t mode)
 {
 	if (S_ISREG(mode))
 		return ('-');
+	if (S_ISLNK(mode))
+		return ('l');
 	if (S_ISDIR(mode))
 		return ('d');
 	if (S_ISCHR(mode))
@@ -24,8 +26,6 @@ char		file_type(mode_t mode)
 		return ('b');
 	if (S_ISFIFO(mode))
 		return ('p');
-	if (S_ISLNK(mode))
-		return ('l');
 	if (S_ISSOCK(mode))
 		return ('s');
 	return ('?');

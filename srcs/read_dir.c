@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 11:10:24 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/01 12:18:17 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:30:02 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int			dircheck(char *dir)
 {
-	DIR		*dirp;
+	DIR			*dirp;
+	struct stat	atr;
 
-	if ((dirp = opendir(dir)))
+	lstat(dir, &atr);
+	if ((dirp = opendir(dir)) && file_type(atr.st_mode) == 'd')
 	{
 		closedir(dirp);
 		return (1);
