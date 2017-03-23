@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 14:34:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 14:03:37 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 17:50:54 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ size_t		block_size(char *opt, char *dir, char **lstcont)
 		{
 			tmp = ft_strjoin(dir, "/");
 			tmp2 = ft_strjoin(tmp, lstcont[i - 1]);
-			if (stat(tmp2, &atr) == 0)
+			if (lstat(tmp2, &atr) == 0)
 				size += atr.st_blocks;
 			free(tmp);
 			free(tmp2);

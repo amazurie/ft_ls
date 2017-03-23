@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 11:10:24 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 15:49:42 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 17:55:38 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ static void	diropen3(char *opt, char **lstdir, char **buff, size_t **i)
 	struct stat	atr;
 
 	len_ls(lstdir, &atr, &len);
-	(*i)[0] = 0;
 	while (lstdir[(*i)[0]])
 	{
-		stat(lstdir[(*i)[0]++], &atr);
+		lstat(lstdir[(*i)[0]++], &atr);
 		if (file_type(atr.st_mode) != 'd')
 		{
 			(*i)[2] = 1;
@@ -29,11 +28,12 @@ static void	diropen3(char *opt, char **lstdir, char **buff, size_t **i)
 			{
 				buff_cont2(lstdir[(*i)[0] - 1], atr, len, buff);
 				buffncat(buff, " ", (*i)[1]);
-			}
-			buffcat(buff, lstdir[(*i)[0] - 1]);
-			buffncat(buff, " ", (*i)[1]);
-			if (ft_strchr(opt, 'l'))
+				buffcat(buff, lstdir[(*i)[0] - 1]);
+				buff_link(atr, buff, lstdir[(*i)[0] - 1]);
 				fill_nchar(buff, '\n', 1);
+			}
+			else if (!ft_strchr(opt, 'l'))
+				buffncat(buff, " ", (*i)[1]);
 		}
 	}
 	free(len);
@@ -51,6 +51,7 @@ static int	diropen2(char *opt, char **lstdir, char **buff)
 		if (i[1] < ft_strlen(lstdir[i[0]++]))
 			i[1] = ft_strlen(lstdir[i[0] - 1]);
 	sort_dir(opt, lstdir, NULL);
+	i[0] = 0;
 	diropen3(opt, lstdir, buff, &i);
 	buff[0][ft_strlen((*buff)) - 1] = 0;
 	free(i);
