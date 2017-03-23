@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 11:10:19 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/15 14:33:35 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 09:55:17 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		sort_alpha(char *opt, char **lstdir)
+static void	sort_alpha(char *opt, char **lstdir)
 {
 	size_t	i;
 	size_t	j;
@@ -50,8 +50,9 @@ static void	sort_rsec(char **lstdir, char **tmp, struct stat **atr, size_t i)
 			stat(tmp[2], atr[0]);
 		else if (atr[0]->st_mtime == atr[1]->st_mtime)
 		{
-			if (atr[0]->st_mtimespec.tv_nsec
-				> atr[1]->st_mtimespec.tv_nsec)
+			if ((atr[0]->st_mtimespec.tv_nsec > atr[1]->st_mtimespec.tv_nsec)
+				|| (atr[0]->st_mtimespec.tv_nsec == atr[1]->st_mtimespec.tv_nsec
+				&& ft_strcmp(lstdir[i], lstdir[j]) <= 0))
 			{
 				ft_strswap(&lstdir[i], &lstdir[j]);
 				stat(tmp[2], atr[0]);
@@ -76,8 +77,9 @@ static void	sort_sec(char **lstdir, char **tmp, struct stat **atr, size_t i)
 			stat(tmp[2], atr[0]);
 		else if (atr[0]->st_mtime == atr[1]->st_mtime)
 		{
-			if (atr[0]->st_mtimespec.tv_nsec
-				< atr[1]->st_mtimespec.tv_nsec)
+			if ((atr[0]->st_mtimespec.tv_nsec < atr[1]->st_mtimespec.tv_nsec)
+				|| (atr[0]->st_mtimespec.tv_nsec == atr[1]->st_mtimespec.tv_nsec
+				&& ft_strcmp(lstdir[i], lstdir[j]) >= 0))
 			{
 				ft_strswap(&lstdir[i], &lstdir[j]);
 				stat(tmp[2], atr[0]);
@@ -88,18 +90,18 @@ static void	sort_sec(char **lstdir, char **tmp, struct stat **atr, size_t i)
 	}
 }
 
-static void		sort_time(char *opt, char **lstdir, char *path)
+static void	sort_time(char *opt, char **lstdir, char *path)
 {
 	struct stat	**atr;
 	char		**tmp;
-	size_t		i;
+	int			i;
 
 	atr = (struct stat **)ft_memalloc(sizeof(struct stat *) * 3);
 	atr[0] = (struct stat *)ft_memalloc(sizeof(struct stat));
 	atr[1] = (struct stat *)ft_memalloc(sizeof(struct stat));
 	tmp = (char **)ft_memalloc(sizeof(char *) * 4);
-	i = 0;
-	while (lstdir[i])
+	i = -1;
+	while (lstdir[++i])
 	{
 		tmp[0] = ft_strjoin(path, "/");
 		tmp[1] = ft_strjoin(tmp[0], lstdir[i]);
@@ -110,7 +112,6 @@ static void		sort_time(char *opt, char **lstdir, char *path)
 			sort_sec(lstdir, tmp, atr, i);
 		free(tmp[0]);
 		free(tmp[1]);
-		i++;
 	}
 	free(atr[0]);
 	free(atr[1]);
@@ -118,7 +119,7 @@ static void		sort_time(char *opt, char **lstdir, char *path)
 	free(tmp);
 }
 
-int				sort_dir(char *opt, char **lstdir, char *path)
+int			sort_dir(char *opt, char **lstdir, char *path)
 {
 	if (ft_strchr(opt, 'f'))
 		return (0);
