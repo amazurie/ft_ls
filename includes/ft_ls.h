@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 15:35:10 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/15 12:30:37 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:52:56 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ void	searchdir2(char *opt, char *dir, char **lstcont, char **buff);
 void	searchdir(char *opt, char *dir, char **lstcont, char **buff);
 void	printfile_err(char **err, char **opt);
 void	free_lst(char **lst);
+int		print_err(void);
 
 #endif

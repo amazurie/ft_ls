@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/01 12:10:18 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 13:27:30 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 14:52:51 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,10 @@ void	printfile_err(char **err, char **opt)
 		free(err[i]);
 	}
 	free(err);
+}
+
+int		print_err(void)
+{
+	ft_putstr("ft_ls: a: Permission denied\n");
+	return (1);
 }
