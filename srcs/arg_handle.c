@@ -6,7 +6,7 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 15:38:58 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/15 12:28:56 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/03/23 10:05:52 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ void		check_add(char **opt, char op)
 			&& !ft_strchr(*opt, op))
 		opt[0][ft_strlen_chr(*opt, 'C')] = op;
 	else if (op == 'f' && !ft_strchr(*opt, 'a'))
+	{
 		opt[0][ft_strlen(*opt)] = 'a';
+		opt[0][ft_strlen(*opt)] = op;
+	}
 	else
 		opt[0][ft_strlen(*opt)] = op;
 }
