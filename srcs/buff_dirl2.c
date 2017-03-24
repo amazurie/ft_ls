@@ -100,9 +100,11 @@ static void	mj(struct stat atr, char **buff, size_t *len)
 		fill_nchar(buff, ' ', len[4] - ft_strlen(tmp));
 		buffcat(buff, tmp);
 		buffcat(buff, ",");
+		free(tmp);
 		tmp = ft_itoa(minor(atr.st_rdev));
 		fill_nchar(buff, ' ', len[5] - ft_strlen(tmp));
 		buffcat(buff, tmp);
+		free(tmp);
 	}
 	else
 	{

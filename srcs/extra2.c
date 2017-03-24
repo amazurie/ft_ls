@@ -19,13 +19,18 @@ int		dircheck(char *dir, char **buff)
 
 	lstat(dir, &atr);
 	errno = 0;
-	if (!(dirp = opendir(dir)) && errno != ENOTDIR)
-		print_err_perm(buff, dir);
+	if (!(dirp = opendir(dir)))
+	{
+		if (errno != ENOTDIR)
+			print_err_perm(buff, dir);
+		return (0);
+	}
 	else if (file_type(atr.st_mode) == 'd')
 	{
 		closedir(dirp);
 		return (1);
 	}
+	closedir(dirp);
 	return (0);
 }
 
