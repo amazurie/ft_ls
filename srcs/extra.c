@@ -31,29 +31,28 @@ char		file_type(mode_t mode)
 	return ('?');
 }
 
-size_t		block_size(char *opt, char *dir, char **lstcont)
+void	searchdir(char *opt, char *dir, char **lstcont, char **buff)
 {
-	struct stat	atr;
-	size_t		size;
-	size_t		i;
-	char		*tmp;
-	char		*tmp2;
+	char	*tmp;
+	char	*tmp2;
+	size_t	i;
 
 	i = 0;
-	size = 0;
 	while (lstcont[i])
 	{
-		if (lstcont[i++][0] != '.' || ft_strchr(opt, 'a'))
+		tmp = ft_strjoin(dir, "/");
+		tmp2 = ft_strjoin(tmp, lstcont[i]);
+		free(tmp);
+		if (dircheck(tmp2, buff) && ft_strcmp(lstcont[i], "..") != 0 &&
+				ft_strcmp(lstcont[i], ".") != 0 &&
+				(lstcont[i][0] != '.' || ft_strchr(opt, 'a')))
 		{
-			tmp = ft_strjoin(dir, "/");
-			tmp2 = ft_strjoin(tmp, lstcont[i - 1]);
-			if (lstat(tmp2, &atr) == 0)
-				size += atr.st_blocks;
-			free(tmp);
-			free(tmp2);
+			fill_nchar(buff, '\n', 1);
+			dirlst(opt, tmp2, buff);
 		}
+		free(tmp2);
+		i++;
 	}
-	return (size);
 }
 
 void		set_pathdir(char *opt, char *dir, char **lstcont, struct stat *atr)

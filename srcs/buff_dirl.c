@@ -12,28 +12,18 @@
 
 #include "ft_ls.h"
 
-void		len_ls(char **lstcont, struct stat *atr, size_t **len)
+void		buff_link(struct stat atr, char **buff, char *tmp)
 {
-	char	*tmp;
-	size_t	i;
+	char	*tmp2;
 
-	*len = (size_t *)ft_memalloc(sizeof(size_t) * 3);
-	i = 0;
-	while (lstcont[i])
+	tmp2 = (char *)ft_memalloc(500);
+	if (file_type(atr.st_mode) == 'l')
 	{
-		if (lstcont[i][0] != 0)
-		{
-			tmp = ft_itoa(atr[i].st_nlink);
-			if (len[0][0] <= ft_strlen(tmp))
-				len[0][0] = ft_strlen(tmp) + 1;
-			free(tmp);
-			tmp = ft_itoa(atr[i].st_size);
-			if (len[0][1] <= ft_strlen(tmp))
-				len[0][1] = ft_strlen(tmp) + 1;
-			free(tmp);
-		}
-		i++;
+		buffcat(buff, " -> ");
+		readlink(tmp, tmp2, 499);
+		buffcat(buff, tmp2);
 	}
+	free(tmp2);
 }
 
 char		get_atr(char *path)
@@ -69,13 +59,15 @@ void		buff_cont2(char *dir, struct stat atr, size_t *len, char **buff)
 	tmp = ft_itoa(atr.st_nlink);
 	fill_nchar(buff, ' ', len[0] - ft_strlen(tmp));
 	buffcat(buff, tmp);
-	buffcat(buff, " ");
-	buffcat(buff, getpwuid(atr.st_uid)->pw_name);
-	buffcat(buff, " ");
-	buffcat(buff, getgrgid(atr.st_gid)->gr_name);
-	buffcat(buff, " ");
-	time_cont(atr, buff, len);
 	free(tmp);
+	buffcat(buff, " ");
+	tmp = getpwuid(atr.st_uid)->pw_name;
+	buffcat(buff, tmp);
+	fill_nchar(buff, ' ', len[2] - ft_strlen(tmp));
+	tmp = getgrgid(atr.st_gid)->gr_name;
+	buffcat(buff, tmp);
+	fill_nchar(buff, ' ', len[3] - ft_strlen(tmp));
+	time_cont(atr, buff, len);
 }
 
 static void	buff_cont(char *dir, char **lstcont, struct stat *atr, char **buff)

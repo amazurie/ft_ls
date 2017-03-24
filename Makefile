@@ -28,9 +28,9 @@ SRC =	$(SRC_PATH)/main.c			\
 		$(SRC_PATH)/read_dir.c		\
 		$(SRC_PATH)/buff_dir.c		\
 		$(SRC_PATH)/buff_dirl.c		\
+		$(SRC_PATH)/buff_dirl2.c	\
 		$(SRC_PATH)/dir_sort.c		\
 		$(SRC_PATH)/size_sort.c		\
-		$(SRC_PATH)/extra3.c		\
 		$(SRC_PATH)/extra2.c		\
 		$(SRC_PATH)/extra.c			\
 		$(SRC_PATH)/perm.c

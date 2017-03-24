@@ -12,59 +12,21 @@
 
 #include "ft_ls.h"
 
-static void	mj(struct stat atr, char **buff, size_t *len)
+int		dircheck(char *dir, char **buff)
 {
-	char	*tmp;
-	char	tmp2;
+	DIR			*dirp;
+	struct stat	atr;
 
-	tmp2 = file_type(atr.st_mode);
-	if (tmp2 == 'c' || tmp2 == 'b')
+	lstat(dir, &atr);
+	errno = 0;
+	if (!(dirp = opendir(dir)) && errno != ENOTDIR)
+		print_err_perm(buff, dir);
+	else if (file_type(atr.st_mode) == 'd')
 	{
-		buff_num(buff, major(atr.st_rdev));
-		buffcat(buff, " ");
-		buff_num(buff, minor(atr.st_rdev));
-		buffcat(buff, " ");
+		closedir(dirp);
+		return (1);
 	}
-	else
-	{
-		tmp = ft_itoa(atr.st_size);
-		fill_nchar(buff, ' ', len[1] - ft_strlen(tmp));
-		buffcat(buff, tmp);
-		free(tmp);
-	}
-}
-
-void		time_cont(struct stat atr, char **buff, size_t *len)
-{
-	time_t	tm;
-
-	mj(atr, buff, len);
-	tm = atr.st_mtime;
-	if (time(NULL) - tm > 15724800 || time(NULL) - tm < 0)
-	{
-		ctime(&tm);
-		buffncat(buff, (ctime(&tm) + 3), 8);
-		buffncat(buff, (ctime(&tm) + 19), 5);
-	}
-	else
-	{
-		ctime(&tm);
-		buffncat(buff, (ctime(&tm) + 3), 13);
-	}
-}
-
-void		buff_link(struct stat atr, char **buff, char *tmp)
-{
-	char	*tmp2;
-
-	tmp2 = (char *)ft_memalloc(500);
-	if (file_type(atr.st_mode) == 'l')
-	{
-		buffcat(buff, " -> ");
-		readlink(tmp, tmp2, 499);
-		buffcat(buff, tmp2);
-	}
-	free(tmp2);
+	return (0);
 }
 
 void		tmp_free(char ***tmp)
@@ -100,4 +62,27 @@ int			buff_one(char *opt, char **lstcont, char **buff)
 		return (1);
 	}
 	return (0);
+}
+
+void	printfile_err(char **err, char **opt)
+{
+	int	i;
+
+	i = 0;
+	while (err[i])
+	{
+		ft_putstr_fd("ft_ls: ", 2);
+		perror(err[i]);
+		opt[0][ft_strlen(*opt)] = '9';
+		i++;
+		free(err[i]);
+	}
+	free(err);
+}
+
+int		print_err_perm(char **buff, char *dir)
+{
+	print_buff(buff);
+	perror(dir);
+	return (1);
 }
