@@ -65,5 +65,7 @@ int		print_err_perm(char **buff, char *dir);
 void	len_ls(char **lstcont, struct stat *atr, size_t **len);
 void	print_cont2(char *dir, struct stat atr, size_t *len, char **buff);
 void	buff_cont2(char *dir, struct stat atr, size_t *len, char **buff);
+void	diropenl(char **lstdir, char **buff, size_t **i, struct stat *atr);
+void	diropenc(char *opt, char **lstdir, char **buff, size_t **i);
 
 #endif

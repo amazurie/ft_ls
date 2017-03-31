@@ -14,7 +14,7 @@ NAME = ft_ls
 
 CC = gcc
 
-CFLAGS = #-Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 INC_PATH = includes
 SRC_PATH = srcs
@@ -31,6 +31,7 @@ SRC =	$(SRC_PATH)/main.c			\
 		$(SRC_PATH)/buff_dirl2.c	\
 		$(SRC_PATH)/dir_sort.c		\
 		$(SRC_PATH)/size_sort.c		\
+		$(SRC_PATH)/extra3.c		\
 		$(SRC_PATH)/extra2.c		\
 		$(SRC_PATH)/extra.c			\
 		$(SRC_PATH)/perm.c
