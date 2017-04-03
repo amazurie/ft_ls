@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 11:10:24 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 18:02:00 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/03 11:14:03 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	diropen3(char *opt, char **lstdir, char **buff, size_t**i)
+static void	diropen3(char *opt, char **lstdir, char **buff, size_t **i)
 {
 	size_t		*len;
 	struct stat	*atr;
@@ -44,7 +44,7 @@ static void	diropen3(char *opt, char **lstdir, char **buff, size_t**i)
 static int	diropen2(char *opt, char **lstdir, char **buff)
 {
 	size_t	*i;
-	int	j;
+	int		j;
 
 	i = (size_t *)ft_memalloc(sizeof(size_t) * 4);
 	i[0] = 0;

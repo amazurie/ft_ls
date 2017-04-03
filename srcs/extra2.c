@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 22:14:15 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 17:06:57 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/03 11:13:16 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int		dircheck(char *dir, char **buff)
+int			dircheck(char *dir, char **buff)
 {
 	DIR			*dirp;
 	struct stat	atr;
@@ -69,7 +69,7 @@ int			buff_one(char *opt, char **lstcont, char **buff)
 	return (0);
 }
 
-void	printfile_err(char **err, char **opt)
+void		printfile_err(char **err, char **opt)
 {
 	int	i;
 
@@ -85,7 +85,7 @@ void	printfile_err(char **err, char **opt)
 	free(err);
 }
 
-int		print_err_perm(char **buff, char *dir)
+int			print_err_perm(char **buff, char *dir)
 {
 	print_buff(buff);
 	perror(dir);

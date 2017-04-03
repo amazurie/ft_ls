@@ -6,13 +6,13 @@
 /*   By: amazurie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/06 14:34:47 by amazurie          #+#    #+#             */
-/*   Updated: 2017/03/23 17:50:54 by amazurie         ###   ########.fr       */
+/*   Updated: 2017/04/03 11:14:28 by amazurie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char		file_type(mode_t mode)
+char	file_type(mode_t mode)
 {
 	if (S_ISREG(mode))
 		return ('-');
@@ -55,7 +55,7 @@ void	searchdir(char *opt, char *dir, char **lstcont, char **buff)
 	}
 }
 
-void		set_pathdir(char *opt, char *dir, char **lstcont, struct stat *atr)
+void	set_pathdir(char *opt, char *dir, char **lstcont, struct stat *atr)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -78,7 +78,7 @@ void		set_pathdir(char *opt, char *dir, char **lstcont, struct stat *atr)
 	}
 }
 
-void		buff_dir_name(char *opt, char *dir, char **buff)
+void	buff_dir_name(char *opt, char *dir, char **buff)
 {
 	if (ft_strchr(opt, '9') && ft_strcmp(dir, ".") != 0)
 		buffcat(buff, dir);
@@ -86,7 +86,7 @@ void		buff_dir_name(char *opt, char *dir, char **buff)
 		buffcat(buff, ":\n");
 }
 
-void		free_lst(char **lst)
+void	free_lst(char **lst)
 {
 	int	i;
 
