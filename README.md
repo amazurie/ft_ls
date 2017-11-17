@@ -2,7 +2,7 @@
 
 Ce projet a pour but de réecrire le fameux "ls".
 
-requirement:
+Requirement:
 - GNU make
 - GCC
 
