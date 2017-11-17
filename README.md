@@ -7,12 +7,12 @@ requirement:
 - GCC
 
 options :
-- l
-- R
-- a
-- S
-- r
-- t
-- 1
-- C
-- f
+- -l
+- -R
+- -a
+- -S
+- -r
+- -t
+- -1
+- -C
+- -f
